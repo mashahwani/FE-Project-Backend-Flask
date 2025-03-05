@@ -548,13 +548,10 @@ settings = supabase.table('settings').select(
 def search_ghl_contacts():
 
     GHL_API_URL = os.environ.get('GHL_API_URL')
-    # settings = supabase.table('settings').select(
-    #     'main_location_id, private_integration_key').execute().data
 
     if not settings:
         return jsonify({'error': 'No Credentials Provided'}), 404
-    # settings[0]['private_integration_key']
-    # or settings[0]['main_location_id']
+
     private_integration_key = settings[0]['private_integration_key']
     location_id = settings[0]['main_location_id']
     query = request.args.get('query')
@@ -613,10 +610,6 @@ def search_ghl_contacts():
 def update_contact_custom_fields():
     try:
         GHL_API_URL = os.environ.get('GHL_API_URL')
-        # settings = supabase.table('settings').select(
-        #     'main_location_id, private_integration_key').execute().data
-
-        # private_integration_key = settings[0]['private_integration_key']
 
         data = request.get_json()
         contact = data.get('contact')
@@ -642,14 +635,8 @@ def update_contact_custom_fields():
             'customFields': custom_fields,
         }
 
-        # settings = supabase.table('settings').select(
-        #     'private_integration_key').execute().data
-
         if not settings:
             return jsonify({'error': 'No Credentials Provided'}), 404
-
-        # private_integration_key = "pit-fb66a9c1-a22b-45ef-b8a4-c201eff451ad"
-        # location_id = "05NesdgGmR3jhRvLBC7A"
 
         header = {
             'Authorization': f'Bearer {settings[0]["private_integration_key"]}',
@@ -680,8 +667,5 @@ def update_contact_custom_fields():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=30000)
 
-
-# {'access_token': 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoQ2xhc3MiOiJDb21wYW55IiwiYXV0aENsYXNzSWQiOiJvRUViNFBSeHBJeXhFVjFMeExlYSIsInNvdXJjZSI6IklOVEVHUkFUSU9OIiwic291cmNlSWQiOiI2N2JkOWMzNjg2ZWNhZTg2NjliMmJjZjYtbTdrY2xyem8iLCJjaGFubmVsIjoiT0FVVEgiLCJwcmltYXJ5QXV0aENsYXNzSWQiOiJvRUViNFBSeHBJeXhFVjFMeExlYSIsIm9hdXRoTWV0YSI6eyJzY29wZXMiOlsiY29udGFjdHMucmVhZG9ubHkiLCJjb250YWN0cy53cml0ZSIsIm9hdXRoLndyaXRlIiwib2F1dGgucmVhZG9ubHkiXSwiY2xpZW50IjoiNjdiZDljMzY4NmVjYWU4NjY5YjJiY2Y2IiwiY2xpZW50S2V5IjoiNjdiZDljMzY4NmVjYWU4NjY5YjJiY2Y2LW03a2NscnpvIiwiYWdlbmN5UGxhbiI6ImFnZW5jeV9tb250aGx5XzQ5NyJ9LCJpYXQiOjE3NDA3MjA2NjYuNDgzLCJleHAiOjE3NDA4MDcwNjYuNDgzfQ.xhHAZzY1YHCYqn2l0UrjlyGTis5w4Q-zGq8ZrhY6czS8nNeDAreBBa2nSTq1mQAAvpYIU-ubZOBNNUfzgyT4sM7thTMpiFISAfi-SdY9IizmeZRrX6WeoIoASJoN-c4F-pTg8yQUEACmNJ-Oi3Y-XRYXVEIhWJwyytYJakMc8_HAowcZnRyvAnuPlhCJ1rtR2fv9s3kUYJPAE1wfPuKl8m4ChW4XRIxvWdy422o_G-PL3L_QBAEXuykZoFywPqqXjVwAWI8na_MEQHPjYCrtV1OZ4-piJ-Y9TEEA5QP1xwVbdw-3N-dPJsZaTEM5OQZCgoQAnDbgrjD8GmTebxGLJujouxhHrNWPMSyDMxtHzLnelP1bNRnO-3E9VLwxWT4r3MMJGXeSs95bJwb0_yhKUEWxihJb-DLjROhE78Bfm6FcAfDZPwa2Kv-m8VIIa52Q1udt4Epq690uD9l6GAG7And_yaITYvS5Jbg63PuvHIB_XWezIVuPiJjwfFgU9onyvl0iWb0R3cH6vwA8I7DekZWEpkKcke5pUNuaBqCFZ8fSdYmFIOe76WwNr0qZR1p9Z6vMZyE1pKsXrHJsSiYcdD_u997yuVLNr5AGYDiP78Vsujl4mZ5un_0F8jpG48GoRmYnOaDo9cVdDRwQ--c1uPIylIsmx4Su4_UDV9NtxEw', 'token_type': 'Bearer', 'expires_in': 86399,
-#     'refresh_token': 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoQ2xhc3MiOiJDb21wYW55IiwiYXV0aENsYXNzSWQiOiJvRUViNFBSeHBJeXhFVjFMeExlYSIsInNvdXJjZSI6IklOVEVHUkFUSU9OIiwic291cmNlSWQiOiI2N2JkOWMzNjg2ZWNhZTg2NjliMmJjZjYtbTdrY2xyem8iLCJjaGFubmVsIjoiT0FVVEgiLCJwcmltYXJ5QXV0aENsYXNzSWQiOiJvRUViNFBSeHBJeXhFVjFMeExlYSIsIm9hdXRoTWV0YSI6eyJzY29wZXMiOlsiY29udGFjdHMucmVhZG9ubHkiLCJjb250YWN0cy53cml0ZSIsIm9hdXRoLndyaXRlIiwib2F1dGgucmVhZG9ubHkiXSwiY2xpZW50IjoiNjdiZDljMzY4NmVjYWU4NjY5YjJiY2Y2IiwiY2xpZW50S2V5IjoiNjdiZDljMzY4NmVjYWU4NjY5YjJiY2Y2LW03a2NscnpvIn0sImlhdCI6MTc0MDcyMDY2Ni40OTEsImV4cCI6MTc3MjI1NjY2Ni40OTEsInVuaXF1ZUlkIjoiNmZiZjdhZmUtYzgwMy00NDA0LThmZmUtNTdjODczNDAzNTE2In0.WOwZa4fy65sYnA6-nQ9h5CmdquciGVy_Su7fnmjNQRIOko1Tp-onWToV0LJMaFgMoOSKrJT8Y_t76_2jwFMI7SE3_o7SyINzlx0tclHPCC3A60xZMZlTisyy0kwnA2JpD_hrXNDbPMC6nSlsMkpluMc5FAOy0TaqbjnmEhryoehL0H5o4smjEthZKMtXZckowxbyI4tIntx0whwSk5uAGqLc3VYYa9OZii5gxlEWr5tkP-QBW7zD2WbusfkeQtm5ka4YNa1crVdxWpwU5xCncWNvpeunnTID6dgMqX89g2nbAR9PSmMkYa-Ghc87N_LdqRskX3KtAOBkxDAql6PNYDWNy7-wjW2Nkw6VRO7mFkhyQ3RG6S5ZZkNkuUPIM1C-saGxCJc_yRtkj6YviTpnVpvINp9ZaciVs_UR2oIA8vvXAOmVBF15a_hm-B8qvZsAxPM7IwDJtpeaySIibNoJ6qL2nP61D3j9NsNmp6ouGZaU_i1SjHhWxtGr7c611LJHJ3VJNOOzOhlQ90ev6wCmw2_hkCSuO1zPeEcFdQt7QWrM-wtMAnsG-GjaTmZBbQhl_bFXOa3DjSXsdJP83jF0nlOis3id5TlYWOIvhcjdpkIv_Wf15tzmktsI8zU-k9EFItgV5HgFtND6Jnef-uVRnDQImcRxb3_VhY5w-kiZExY', 'scope': 'contacts.readonly contacts.write', 'userType': 'Company', 'companyId': 'oEEb4PRxpIyxEV1LxLea', 'userId': 'kBo1EwwUDxAvTBGbKNBA'}
